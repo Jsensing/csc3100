@@ -39,9 +39,9 @@
   <script>
     $("#btnReset").on("click",function(){
       $("#txtFirstName").val("");
-      $("#txtLastName").val(" ");
-      $("#txtEmail").val(" ");
-      $("#txtPassword").val(" ");
+      $("#txtLastName").val("");
+      $("#txtEmail").val("");
+      $("#txtPassword").val("");
     })
     
     $("#btnSubmit").on("click",function(){
@@ -51,7 +51,7 @@
       let strPassword = $("#txtPassword").val();
 
       let blnError = false;
-      let strErrorMessage = " ";
+      let strErrorMessage = "";
 
       if(strFirstName.length < 1){
         blnError = true;
