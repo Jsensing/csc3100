@@ -15,12 +15,13 @@
             </div>
             <div class="card-body">
                 <form>
-                    <button class="btn btn-primary" type="button" id="btnSearch">Find All</button>
-                    <hr />
+
                     <label class="form-label">Characters</label>
                     <select class="form-control" id="cboCharacters">
                         <option></option>
                     </select>
+                    <button class="btn btn-primary col-12" type="button" id="btnSearch">Find Asset</button>
+                    <hr />
                 </form>
 
             </div>
@@ -31,16 +32,24 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         var arrCharacters;
-        $('#btnSearch').on('click',function(){
-            console.log('Clicked Search');
-
-            $.getJSON('https://www.swollenhippo.com/getCharactersByAPIKey.php?APIKey=Mickey2022!',function(result){
+        $.getJSON('https://www.swollenhippo.com/getCharactersByAPIKey.php?APIKey=Mickey2022!',function(result){
                 //console.log(result);
                 arrCharacters = result
-                console.log(arrCharacters[0].FirstName);
-                let strHTML = '<option>'+ arrCharacters[0].FirstName + ' ' + arrCharacters[0].LastName + '</option>';
-                $('#cboCharacters').append(strHTML);
+                //console.log(arrCharacters[0].FirstName);
+
+                arrCharacters.forEach(function(character){
+                    console.log(character.FirstName)
+                    let strHTML = '<option value="' + character.CodeName + '">'+ character.FirstName + ' ' + character.LastName + '</option>';
+                    $('#cboCharacters').append(strHTML);
+                })
             })
+        $('#btnSearch').on('click',function(){
+            console.log('Clicked Search');
+            let strCodeName = $('#cboCharacters').val();
+            $.getJSON('https://www.swollenhippo.com/getProfileDetailsByAPIKey.php?APIKey=Mickey2022!&Codename=' + strCodeName, function(result){
+                console.log(result);
+            })
+            
         })
     </script>
 </body>
